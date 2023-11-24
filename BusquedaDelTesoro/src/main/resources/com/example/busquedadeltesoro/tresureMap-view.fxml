@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.canvas.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<!--<AnchorPane xmlns="http://javafx.com/javafx"-->
+<!--            xmlns:fx="http://javafx.com/fxml"-->
+<!--            fx:controller="com.example.busquedadeltesoro.MapController"-->
+<!--            prefHeight="400.0" prefWidth="600.0">-->
+<!--</AnchorPane>-->
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.busquedadeltesoro.MapController">
+    <Canvas fx:id="canvas" height="900.0" layoutX="6.0" width="1600.0" />
+   <HBox prefHeight="100.0" prefWidth="200.0" AnchorPane.leftAnchor="1100.0">
+      <children>
+         <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../Images/heart_game.png" />
+         </image>
+            <HBox.margin>
+               <Insets top="20.0" />
+            </HBox.margin></ImageView>
+         <Label fx:id="lifeStatusLabel" text="Label">
+            <HBox.margin>
+               <Insets left="5.0" top="25.0" />
+            </HBox.margin>
+            <font>
+               <Font size="30.0" />
+            </font></Label>
+      </children>
+   </HBox>
+   <HBox prefHeight="100.0" prefWidth="200.0" AnchorPane.leftAnchor="1300.0">
+      <children>
+         <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../Images/coin_game-removebg-preview.png" />
+         </image></ImageView>
+         <Label fx:id="coinStatusLabel" text="0">
+            <HBox.margin>
+               <Insets left="10.0" top="25.0" />
+            </HBox.margin>
+            <font>
+               <Font size="30.0" />
+            </font></Label>
+      </children>
+   </HBox>
+   <VBox prefHeight="100.0" prefWidth="100.0" AnchorPane.leftAnchor="1400.0" AnchorPane.topAnchor="700.0">
+      <children>
+         <Label text="Isla Final" />
+         <TextField />
+      </children>
+   </VBox>
+   <VBox prefHeight="100.0" prefWidth="100.0" AnchorPane.leftAnchor="1250.0" AnchorPane.topAnchor="700.0">
+      <children>
+         <Label text="Isla Inicial" />
+         <TextField />
+      </children>
+   </VBox>
+   <VBox prefHeight="60.0" prefWidth="100.0" AnchorPane.leftAnchor="1400.0" AnchorPane.topAnchor="750.0">
+      <children>
+         <Button fx:id="cavarButton" mnemonicParsing="false" onAction="#onCavarButton" text="Cavar">
+            <VBox.margin>
+               <Insets left="27.0" top="15.0" />
+            </VBox.margin></Button>
+      </children>
+   </VBox>
+   <VBox prefHeight="60.0" prefWidth="100.0" AnchorPane.leftAnchor="1250.0" AnchorPane.topAnchor="750.0">
+      <children>
+         <Button fx:id="lanzarDado" mnemonicParsing="false" onAction="#onLanzarDadoButton" text="Lanzar Dado">
+            <VBox.margin>
+               <Insets top="15.0" />
+            </VBox.margin>
+         </Button>
+      </children>
+      <padding>
+         <Insets left="9.0" />
+      </padding>
+   </VBox>
+</AnchorPane>
