@@ -6,5 +6,6 @@ public enum ItemType {
     HEART,
     TREASURE,
     NOTHING,
+    MAP,
     INITIAL
 }

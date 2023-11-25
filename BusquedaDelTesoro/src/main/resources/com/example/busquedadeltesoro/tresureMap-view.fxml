@@ -15,6 +15,35 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.busquedadeltesoro.MapController">
     <Canvas fx:id="canvas" height="900.0" layoutX="6.0" width="1600.0" />
+   <VBox prefHeight="100.0" prefWidth="100.0" AnchorPane.leftAnchor="1000.0" AnchorPane.topAnchor="700.0">
+      <children>
+         <Button mnemonicParsing="false" onAction="#caminoLongitudMinima" text="Mostrar">
+            <VBox.margin>
+               <Insets left="20.0" top="65.0" />
+            </VBox.margin>
+         </Button>
+      </children>
+   </VBox>
+   <HBox prefHeight="100.0" prefWidth="200.0" AnchorPane.leftAnchor="900.0">
+      <children>
+         <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@../../../Images/treasureMapPixel.png" />
+            </image>
+            <HBox.margin>
+               <Insets />
+            </HBox.margin>
+         </ImageView>
+         <Label fx:id="mapStatusLabel" text="0">
+            <HBox.margin>
+               <Insets left="10.0" top="25.0" />
+            </HBox.margin>
+            <font>
+               <Font size="30.0" />
+            </font>
+         </Label>
+      </children>
+   </HBox>
    <HBox prefHeight="100.0" prefWidth="200.0" AnchorPane.leftAnchor="1100.0">
       <children>
          <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
@@ -51,13 +80,13 @@
    <VBox prefHeight="100.0" prefWidth="100.0" AnchorPane.leftAnchor="1400.0" AnchorPane.topAnchor="700.0">
       <children>
          <Label text="Isla Final" />
-         <TextField />
+         <TextField fx:id="finalPoint" onAction="#movementAction" />
       </children>
    </VBox>
    <VBox prefHeight="100.0" prefWidth="100.0" AnchorPane.leftAnchor="1250.0" AnchorPane.topAnchor="700.0">
       <children>
          <Label text="Isla Inicial" />
-         <TextField />
+         <TextField fx:id="initialPoint" onAction="#movementAction" />
       </children>
    </VBox>
    <VBox prefHeight="60.0" prefWidth="100.0" AnchorPane.leftAnchor="1400.0" AnchorPane.topAnchor="750.0">
@@ -79,5 +108,17 @@
       <padding>
          <Insets left="9.0" />
       </padding>
+   </VBox>
+   <VBox prefHeight="100.0" prefWidth="100.0" AnchorPane.leftAnchor="1100.0" AnchorPane.topAnchor="700.0">
+      <children>
+         <Button fx:id="viajarButton" mnemonicParsing="false" onAction="#movementAction" text="Viajar">
+            <VBox.margin>
+               <Insets left="25.0" top="20.0" />
+            </VBox.margin></Button>
+         <Button mnemonicParsing="false" onAction="#revelarCaminoTesoro" text="Revelar">
+            <VBox.margin>
+               <Insets left="23.0" top="20.0" />
+            </VBox.margin></Button>
+      </children>
    </VBox>
 </AnchorPane>

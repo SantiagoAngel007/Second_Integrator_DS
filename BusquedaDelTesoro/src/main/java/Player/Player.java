@@ -6,6 +6,7 @@ public class Player {
     private String username;
     private int coinAmount;
     private int lifeStatus;
+    private int mapStatus;
     private String word;
 
     private Player(){
@@ -14,6 +15,14 @@ public class Player {
     static public Player getInstance(){
         if(player ==null) player = new Player();
         return player;
+    }
+
+    public int getMapStatus() {
+        return mapStatus;
+    }
+
+    public void setMapStatus(int mapStatus) {
+        this.mapStatus = mapStatus;
     }
 
     public int getCoinAmount() {

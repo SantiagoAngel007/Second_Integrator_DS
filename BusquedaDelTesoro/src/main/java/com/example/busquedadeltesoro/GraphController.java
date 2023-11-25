@@ -22,23 +22,6 @@ public class GraphController<K extends Comparable<K>> {
         playerGenerator = new PlayerGenerator<>(0,0,null);
     }
 
-//    public void paint(){
-//        generateMap();
-//        drawMap();
-//        drawAllEdges();
-//    }
-
-
-
-//    public Vertex<K> addVertex(K key) {
-//        if (searchVertex(key) == null) {
-//            Vertex<K> vertex = new Vertex<>(key, new ArrayList<>());
-//            vertexArrayList.add(vertex);
-//            return vertex;
-//        } else {
-//            return null;
-//        }
-//    }
 
     public Vertex<K> addVertex(K key, double x, double y, String name, int item) {
         if (searchVertex(key) == null) {
@@ -53,7 +36,9 @@ public class GraphController<K extends Comparable<K>> {
                 itemType = ItemType.HEART;
             }else if (item==3) {
                 itemType = ItemType.TRAP;
-            }else if (item==-1) {
+            }else if (item==4) {
+                itemType = ItemType.MAP;
+            } else if (item==-1) {
                 itemType = ItemType.INITIAL;
             } else {
                 itemType = ItemType.NOTHING;
@@ -79,10 +64,6 @@ public class GraphController<K extends Comparable<K>> {
             return null;
         }
     }
-
-//    public void setPlayerVertex(K key){
-//        playerGenerator.setActualVertex(searchVertex(key));
-//    }
 
     public void clear() {
         vertexArrayList.clear();
@@ -167,98 +148,228 @@ public class GraphController<K extends Comparable<K>> {
         return flag;
     }
 
-//    public boolean breadthFirstSearch(K key) {
-//        Boolean flag = true;
-//        Vertex<K> vertex = searchVertex(key);
-//        if (vertex == null) {
-//            return false;
+//    public String algoritmoDijkstra(Vertex<K> inicio) {
+//        ArrayList<Edge<K>> aristasVisitadas = new ArrayList<>();
+//        ArrayList<Vertex<K>> verticesVisitados = new ArrayList<>();
+//        encontrarCaminoMasCorto(inicio, verticesVisitados, aristasVisitadas);
+//        return muestraRecorrido(verticesVisitados, aristasVisitadas);
+//    }
+//
+//    private void encontrarCaminoMasCorto(Vertex<K> origen, ArrayList<Vertex<K>> verticesVisitados, ArrayList<Edge<K>> aristasVisitadas) {
+//        HashMap<Vertex<K>, Integer> distancias = new HashMap<>();
+//        HashMap<Vertex<K>, Vertex<K>> padres = new HashMap<>();
+//
+//        // Inicializar distancias con valor infinito para todos los vértices excepto el origen
+//        for (Vertex<K> v : vertexArrayList) {
+//            if (v == origen) {
+//                distancias.put(v, 0);
+//            } else {
+//                distancias.put(v, Integer.MAX_VALUE);
+//            }
 //        }
 //
-//        for (Vertex<K> adjacentvertex : vertexArrayList) {
-//            adjacentvertex.setColor(ColorType.WHITE);
-//            adjacentvertex.setDistance(Integer.MAX_VALUE);
-//            adjacentvertex.setPrevious(null);
-//        }
+//        PriorityQueue<Vertex<K>> colaPrioridad = new PriorityQueue<>(Comparator.comparingInt(distancias::get));
+//        colaPrioridad.offer(origen);
 //
-//        vertex.setColor(ColorType.GREY);
-//        vertex.setDistance(0);
-//        vertex.setPrevious(null);
-//
-//        Queue<Vertex<K>> vertexQueue = new LinkedList<>();
-//        vertexQueue.add(vertex);
-//
-//        while (!vertexQueue.isEmpty()) {
-//            Vertex<K> u = vertexQueue.poll();
-//            for (Vertex<K> dequeue : u.getConnectedVertex()) {
-//                if (dequeue.getColor() == ColorType.WHITE) {
-//                    dequeue.setColor(ColorType.GREY);
-//                    dequeue.setDistance(u.getDistance() + 1);
-//                    dequeue.setPrevious(u);
-//                    vertexQueue.add(dequeue);
+//        while (!colaPrioridad.isEmpty()) {
+//            Vertex<K> actual = colaPrioridad.poll();
+//            // Verificar si el vértice actual ya ha sido visitado
+//            if (verticesVisitados.contains(actual)) {
+//                continue;
+//            }
+//            verticesVisitados.add(actual);
+//            for (Vertex<K> vecino : obtenerVecinos(actual)) {
+//                int distancia = distancias.get(actual) + obtenerPesoArista(actual, vecino);
+//                if (distancia < distancias.get(vecino)) {
+//                    distancias.put(vecino, distancia);
+//                    padres.put(vecino, actual);
+//                    colaPrioridad.offer(vecino);
 //                }
 //            }
-//            u.setColor(ColorType.BLACK);
 //        }
+//        // Construir la lista de aristas visitadas a partir de los padres
+//        for (Vertex<K> vertice : verticesVisitados) {
+//            Vertex<K> padre = padres.get(vertice);
+//            if (padre != null) {
+//                Edge<K> arista = aristaConectada(padre, vertice);
+//                aristasVisitadas.add(arista);
+//            }
+//        }
+//    }
+
+//    public int dijkstraAlgorithmInt(Vertex<K> start, Vertex<K> destination) {
+//        ArrayList<Edge<K>> visitedEdges = new ArrayList<>();
+//        ArrayList<Vertex<K>> visitedVertices = new ArrayList<>();
+//        return findShortestPathInt(start, destination, visitedVertices, visitedEdges);
+//    }
 //
-//        for (Vertex<K> g : vertexArrayList) {
-//            if (g.getColor() == ColorType.WHITE) {
-//                flag = false;
+//    private int findShortestPathInt(Vertex<K> start, Vertex<K> destination, ArrayList<Vertex<K>> visitedVertices, ArrayList<Edge<K>> visitedEdges) {
+//        HashMap<Vertex<K>, Integer> distances = new HashMap<>();
+//        HashMap<Vertex<K>, Vertex<K>> parents = new HashMap<>();
+//
+//        // Inicializar distancias con valor infinito para todos los vértices excepto el inicio
+//        for (Vertex<K> v : vertexArrayList) {
+//            if (v == start) {
+//                distances.put(v, 0);
+//            } else {
+//                distances.put(v, Integer.MAX_VALUE);
 //            }
 //        }
 //
-//        return flag;
+//        PriorityQueue<Vertex<K>> priorityQueue = new PriorityQueue<>(Comparator.comparingInt(distances::get));
+//        priorityQueue.offer(start);
+//
+//        while (!priorityQueue.isEmpty()) {
+//            Vertex<K> current = priorityQueue.poll();
+//
+//            // Verificar si el vértice actual ya ha sido visitado
+//            if (visitedVertices.contains(current)) {
+//                continue;
+//            }
+//
+//            visitedVertices.add(current);
+//
+//            // Si llegamos al destino, terminamos la búsqueda
+//            if (current == destination) {
+//                break;
+//            }
+//
+//            for (Vertex<K> neighbor : getNeighbors(current)) {
+//                int distance = distances.get(current) + getEdgeWeight(current, neighbor);
+//
+//                if (distance < distances.get(neighbor)) {
+//                    distances.put(neighbor, distance);
+//                    parents.put(neighbor, current);
+//                    priorityQueue.offer(neighbor);
+//                }
+//            }
+//        }
+//
+//        // Sumar las ponderaciones de las aristas visitadas
+//        int sumOfWeights = 0;
+//        for (Vertex<K> vertex : visitedVertices) {
+//            Vertex<K> parent = parents.get(vertex);
+//            if (parent != null) {
+//                Edge<K> edge = getConnectedEdge(parent, vertex);
+//                visitedEdges.add(edge);
+//                sumOfWeights += edge.getWeight();
+//            }
+//        }
+//
+//        return sumOfWeights;
 //    }
 
 
-
-    public String algoritmoDijkstra(Vertex<K> inicio) {
-        ArrayList<Edge<K>> aristasVisitadas = new ArrayList<>();
-        ArrayList<Vertex<K>> verticesVisitados = new ArrayList<>();
-        encontrarCaminoMasCorto(inicio, verticesVisitados, aristasVisitadas);
-        return muestraRecorrido(verticesVisitados, aristasVisitadas);
+    public int dijkstraAlgorithmInt(Vertex<K> start, Vertex<K> destination) {
+        ArrayList<Vertex<K>> visitedVertices = new ArrayList<>();
+        return findShortestPathInt(start, destination, visitedVertices);
     }
 
-    private void encontrarCaminoMasCorto(Vertex<K> origen, ArrayList<Vertex<K>> verticesVisitados, ArrayList<Edge<K>> aristasVisitadas) {
-        HashMap<Vertex<K>, Integer> distancias = new HashMap<>();
-        HashMap<Vertex<K>, Vertex<K>> padres = new HashMap<>();
+    private int findShortestPathInt(Vertex<K> start, Vertex<K> destination, ArrayList<Vertex<K>> visitedVertices) {
+        HashMap<Vertex<K>, Integer> distances = new HashMap<>();
+        HashMap<Vertex<K>, Vertex<K>> parents = new HashMap<>();
 
-        // Inicializar distancias con valor infinito para todos los vértices excepto el origen
+        // Inicializar distancias con valor infinito para todos los vértices excepto el inicio
         for (Vertex<K> v : vertexArrayList) {
-            if (v == origen) {
-                distancias.put(v, 0);
+            if (v == start) {
+                distances.put(v, 0);
             } else {
-                distancias.put(v, Integer.MAX_VALUE);
+                distances.put(v, Integer.MAX_VALUE);
             }
         }
 
-        PriorityQueue<Vertex<K>> colaPrioridad = new PriorityQueue<>(Comparator.comparingInt(distancias::get));
-        colaPrioridad.offer(origen);
+        PriorityQueue<Vertex<K>> priorityQueue = new PriorityQueue<>(Comparator.comparingInt(distances::get));
+        priorityQueue.offer(start);
 
-        while (!colaPrioridad.isEmpty()) {
-            Vertex<K> actual = colaPrioridad.poll();
+        while (!priorityQueue.isEmpty()) {
+            Vertex<K> current = priorityQueue.poll();
+
             // Verificar si el vértice actual ya ha sido visitado
-            if (verticesVisitados.contains(actual)) {
+            if (visitedVertices.contains(current)) {
                 continue;
             }
-            verticesVisitados.add(actual);
-            for (Vertex<K> vecino : obtenerVecinos(actual)) {
-                int distancia = distancias.get(actual) + obtenerPesoArista(actual, vecino);
-                if (distancia < distancias.get(vecino)) {
-                    distancias.put(vecino, distancia);
-                    padres.put(vecino, actual);
-                    colaPrioridad.offer(vecino);
+
+            visitedVertices.add(current);
+
+            // Si llegamos al destino, terminamos la búsqueda
+            if (current == destination) {
+                break;
+            }
+
+            for (Vertex<K> neighbor : getNeighbors(current)) {
+                int distance = distances.get(current) + getEdgeWeight(current, neighbor);
+
+                if (distance < distances.get(neighbor)) {
+                    distances.put(neighbor, distance);
+                    parents.put(neighbor, current);
+                    priorityQueue.offer(neighbor);
                 }
             }
         }
-        // Construir la lista de aristas visitadas a partir de los padres
-        for (Vertex<K> vertice : verticesVisitados) {
-            Vertex<K> padre = padres.get(vertice);
-            if (padre != null) {
-                Edge<K> arista = aristaConectada(padre, vertice);
-                aristasVisitadas.add(arista);
+
+        // Sumar las ponderaciones de las aristas visitadas
+        int sumOfWeights = 0;
+        Vertex<K> current = destination;
+        while (current != start) {
+            Vertex<K> parent = parents.get(current);
+            Edge<K> edge = getConnectedEdge(parent, current);
+            sumOfWeights += edge.getWeight();
+            current = parent;
+        }
+
+        return sumOfWeights;
+    }
+
+
+    public List<Edge<K>> dijkstraAlgorithmEdge(Vertex<K> start, Vertex<K> destination) {
+        HashMap<Vertex<K>, Integer> distances = new HashMap<>();
+        HashMap<Vertex<K>, Vertex<K>> parents = new HashMap<>();
+
+        // Inicializar distancias con valor infinito para todos los vértices excepto el inicio
+        for (Vertex<K> v : vertexArrayList) {
+            if (v == start) {
+                distances.put(v, 0);
+            } else {
+                distances.put(v, Integer.MAX_VALUE);
             }
         }
+
+        PriorityQueue<Vertex<K>> priorityQueue = new PriorityQueue<>(Comparator.comparingInt(distances::get));
+        priorityQueue.offer(start);
+
+        while (!priorityQueue.isEmpty()) {
+            Vertex<K> current = priorityQueue.poll();
+
+            // Si llegamos al destino, terminamos la búsqueda
+            if (current == destination) {
+                break;
+            }
+
+            for (Vertex<K> neighbor : getNeighbors(current)) {
+                int distance = distances.get(current) + getEdgeWeight(current, neighbor);
+
+                if (distance < distances.get(neighbor)) {
+                    distances.put(neighbor, distance);
+                    parents.put(neighbor, current);
+                    priorityQueue.offer(neighbor);
+                }
+            }
+        }
+
+        // Construir la lista de aristas visitadas a partir de los padres
+        List<Edge<K>> visitedEdges = new ArrayList<>();
+        Vertex<K> current = destination;
+        while (current != start) {
+            Vertex<K> parent = parents.get(current);
+            Edge<K> edge = getConnectedEdge(parent, current);
+            visitedEdges.add(edge);
+            current = parent;
+        }
+
+        Collections.reverse(visitedEdges);
+        return visitedEdges;
     }
+
 
     public String dijkstraAlgorithm(Vertex<K> start, Vertex<K> destination) {
         ArrayList<Edge<K>> visitedEdges = new ArrayList<>();
@@ -339,6 +450,7 @@ public class GraphController<K extends Comparable<K>> {
         return vecinos;
     }
 
+
     private int getEdgeWeight(Vertex<K> origen, Vertex<K> destino) {
         int indiceOrigen = vertexArrayList.indexOf(origen);
         int indiceDestino = vertexArrayList.indexOf(destino);
@@ -415,7 +527,7 @@ public class GraphController<K extends Comparable<K>> {
         // Agregar vértices
         graph.addVertex("A",100,100,"A",4);
         graph.addVertex("B",200,100,"B",4);
-//        graph.addVertex("C",300,100,"C",4);
+        graph.addVertex("C",300,100,"C",4);
 //        graph.addVertex("D",400,100,"D",4);
 //        graph.addVertex("E",500,100,"E",4);
 //        graph.addVertex("F",500,100,"F",4);
@@ -423,7 +535,7 @@ public class GraphController<K extends Comparable<K>> {
 
         graph.addEdge("A", "B", 4);
         graph.addEdge("B", "A", 2);
-//        graph.addEdge("B", "C", 1);
+        graph.addEdge("B", "C", 1);
 //        graph.addEdge("B", "D", 5);
 //        graph.addEdge("C", "B", 1);
 //        graph.addEdge("C", "D", 8);
@@ -432,12 +544,12 @@ public class GraphController<K extends Comparable<K>> {
 //        graph.addEdge("D", "E", 2);
 //        graph.addEdge("E", "F", 3);
 
-//        Vertex<String> v1 = graph.searchVertex("A");
-//        Vertex<String> v6 = graph.searchVertex("F");
+        Vertex<String> v1 = graph.searchVertex("A");
+        Vertex<String> v6 = graph.searchVertex("C");
 
 
         // Mostrar la matriz de adyacencia
-//        graph.crearMatrizAdyacencia();
+        graph.crearMatrizAdyacencia();
 //        System.out.println("Matriz de Adyacencia:");
 //        graph.mostrarMatrizAdyacencia();
 
@@ -445,12 +557,18 @@ public class GraphController<K extends Comparable<K>> {
         boolean bfsResult = graph.breadthFirstSearch("A");
         System.out.println("BFS Result: " + bfsResult);
 
-        // Realizar el algoritmo de Dijkstra desde el vértice "A"
+        int dijkstraResultInt = graph.dijkstraAlgorithmInt(v1,v6);
+        System.out.println("Dijkstra Result: " + dijkstraResultInt);
+
+        ArrayList<Edge<String>> dijkstraResulEdge = (ArrayList<Edge<String>>) graph.dijkstraAlgorithmEdge(v1,v6);
+        System.out.println("Dijkstra Result: " + dijkstraResulEdge);
+
+//        // Realizar el algoritmo de Dijkstra desde el vértice "A"
 //        String dijkstraResult = graph.algoritmoDijkstra(v1);
 //        System.out.println("Dijkstra Result: " + dijkstraResult);
 //
-//        String dijkstraResultEn = graph.dijkstraAlgorithm(v1,v6);
-//        System.out.println("Dijkstra Result: " + dijkstraResultEn);
+        String dijkstraResultEn = graph.dijkstraAlgorithm(v1,v6);
+        System.out.println("Dijkstra Result: " + dijkstraResultEn);
 
     }
 

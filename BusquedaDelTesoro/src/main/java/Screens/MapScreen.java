@@ -28,11 +28,11 @@ public class MapScreen {
     Tile[] tile;
     int[][] mapTileNumber;
 
-    public MapScreen(Canvas canvas) {
+    public MapScreen(Canvas canvas, GraphGenerator graphGenerator) {
         this.canvas = canvas;
         this.graphicsContext = this.canvas.getGraphicsContext2D();
         this.mapGenerator = new MapGenerator(canvas);
-        this.graphGenerator = new GraphGenerator(canvas);
+        this.graphGenerator = graphGenerator;
         tile = new Tile[10];
         mapTileNumber = new int[80][42];
         getTileImage();
